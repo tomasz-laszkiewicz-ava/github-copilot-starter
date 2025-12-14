@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 const SIZE = 9;
 const EMPTY = 0;
 
-function deepCopy(arr) {
+function deepCopy(arr: number[][]): number[][] {
   return arr.map(row => row.slice());
 }
 
-function createEmptyBoard() {
+function createEmptyBoard(): number[][] {
   return Array.from({ length: SIZE }, () => Array(SIZE).fill(EMPTY));
 }
 
-function isSafe(board, row, col, num) {
+function isSafe(board: number[][], row: number, col: number, num: number): boolean {
   for (let x = 0; x < SIZE; x++) {
     if (board[row][x] === num || board[x][col] === num) return false;
   }
@@ -25,14 +25,14 @@ function isSafe(board, row, col, num) {
   return true;
 }
 
-function shuffleArray(arr) {
+function shuffleArray(arr: number[]): void {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
 
-function fillBoard(board) {
+function fillBoard(board: number[][]): boolean {
   for (let row = 0; row < SIZE; row++) {
     for (let col = 0; col < SIZE; col++) {
       if (board[row][col] === EMPTY) {
@@ -53,7 +53,7 @@ function fillBoard(board) {
   return true;
 }
 
-function removeCells(board, clues) {
+function removeCells(board: number[][], clues: number): void {
   let attempts = SIZE * SIZE - clues;
   while (attempts > 0) {
     const row = Math.floor(Math.random() * SIZE);
@@ -65,10 +65,15 @@ function removeCells(board, clues) {
   }
 }
 
+function isRemovableCell(_solved: number[][], _row: number, _col: number): boolean {
+  // In this refactor we don't track removed cells explicitly; treat all non-empty in solved as prefilled
+  return false;
+}
+
 export default function SudokuBoard() {
-  const [board, setBoard] = useState(createEmptyBoard());
-  const [solution, setSolution] = useState(createEmptyBoard());
-  const [message, setMessage] = useState('');
+  const [board, setBoard] = useState<number[][]>(createEmptyBoard());
+  const [solution, setSolution] = useState<number[][]>(createEmptyBoard());
+  const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     newGame();
@@ -85,7 +90,7 @@ export default function SudokuBoard() {
     setMessage('');
   }
 
-  function handleInput(r, c, val) {
+  function handleInput(r: number, c: number, val: string) {
     const v = val.replace(/[^1-9]/g, '');
     const copy = deepCopy(board);
     copy[r][c] = v ? parseInt(v, 10) : EMPTY;
@@ -139,10 +144,4 @@ export default function SudokuBoard() {
       </div>
     </div>
   );
-}
-
-// Helper to determine which cells were removed — simple heuristic: in the initial board
-function isRemovableCell(solved, row, col) {
-  // In this refactor we don't track removed cells explicitly; treat all non-empty in solved as prefilled
-  return false;
 }

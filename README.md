@@ -1,3 +1,15 @@
+# Sudoku Next.js Starter
+
+This repository is a refactor of a legacy 9x9 Sudoku game into a Next.js + React app using Tailwind CSS.
+
+Setup (Windows PowerShell):
+
+```powershell
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000` in your browser.
 # Refactor a Simple Sudoku Game with React and NextJS
 
 Use this simple Sudoku game as a starting point to practice your skills with GitHub Copilot. The goal is to refactor the code to use modern web technologies like React and NextJS, while also adding new features and improving the overall user experience.

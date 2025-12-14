@@ -10,3 +10,8 @@ Thumbs.db
 .idea/
 *.sublime-*
 *.code-workspace
+
+node_modules/
+dist/
+build/
+.next/

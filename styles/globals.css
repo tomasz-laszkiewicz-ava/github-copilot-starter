@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+}
+
+.sudoku-cell {
+  @apply w-10 h-10 text-center border border-gray-300 rounded;
+}
+.sudoku-cell.prefilled {
+  @apply bg-gray-200 font-bold;
+}
+.sudoku-cell.incorrect {
+  @apply bg-red-100 border-red-400;
+}
